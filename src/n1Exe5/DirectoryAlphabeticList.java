@@ -26,6 +26,10 @@ public class DirectoryAlphabeticList implements Comparator<Path>, Serializable {
 		directory = new ArrayList<String>();
 	}
 	
+	public ArrayList<String> getDirectory() {
+		return directory;
+	}
+	
 	public ArrayList<String> getFileTreeFrom (Path dir) {
 		try {
 			Files.walkFileTree(dir, new SimpleFileVisitor<Path>(){
@@ -67,11 +71,7 @@ public class DirectoryAlphabeticList implements Comparator<Path>, Serializable {
 
 	
 	/*
-	 * Añade a la clase del ejercicio anterior, 
-	 * la funcionalidad de listar un árbol de directorios 
-	 * con el contenido de todos sus niveles (recursivamente) 
-	 * de forma que se impriman en pantalla en orden alfabético 
-	 * dentro de cada nivel, indicando además si es un directorio
-	 * (D) o un archivo (F), y su última fecha de modificación.
+	 * Ahora el programa debe serializar un Objeto Java a un archivo 
+	 * .ser y después debe desserializarlo.
 	 */
 }
