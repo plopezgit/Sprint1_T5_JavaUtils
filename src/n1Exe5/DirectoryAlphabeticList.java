@@ -3,6 +3,7 @@ package n1Exe5;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Serializable;
 import java.nio.file.DirectoryStream;
 import java.nio.file.FileSystems;
 import java.nio.file.FileVisitResult;
@@ -16,10 +17,9 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-public class DirectoryAlphabeticList implements Comparator<Path> {
+public class DirectoryAlphabeticList implements Comparator<Path>, Serializable {
 	
-
-
+	private static final long serialVersionUID = 1L;
 	private ArrayList<String> directory;
 
 	public DirectoryAlphabeticList() {
