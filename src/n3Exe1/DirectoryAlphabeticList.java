@@ -69,6 +69,10 @@ public class DirectoryAlphabeticList implements Comparator<Path>, Serializable {
 		return dir2NameToCompare.compareTo(dir1NameToCompare);
 	}
 
+	@Override
+	public String toString() {
+		return "DirectoryAlphabeticList: \n" + directory;
+	}
 	
 	/*
 	 * Ahora el programa debe serializar un Objeto Java a un archivo 

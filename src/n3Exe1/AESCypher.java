@@ -51,7 +51,7 @@ public class AESCypher {
 		SecretKeySpec secretKey = this.createKey(key);
 		
 		Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
-		cipher.init(Cipher.ENCRYPT_MODE, secretKey);
+		cipher.init(Cipher.DECRYPT_MODE, secretKey);
 		
 		byte[] encryptedBytes = Base64.getDecoder().decode(encryptedData);
 		byte[] dataDesencrypted = cipher.doFinal(encryptedBytes);
