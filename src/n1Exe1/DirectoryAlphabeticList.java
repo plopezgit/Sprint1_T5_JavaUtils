@@ -42,8 +42,5 @@ public class DirectoryAlphabeticList implements Comparator<Path> {
 	/*
 	 * Crea una clase que liste alfabéticamente 
 	 * el contenido de un directorio recibido por parámetro.
-	 * 
-	 * 
-	 * 
 	 */
 }

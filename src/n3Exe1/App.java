@@ -27,7 +27,6 @@ public class App {
 		FileInputStream fileInputStream;
 		ObjectInputStream objectInputStream;
 		DirectoryAlphabeticList dir2 = new DirectoryAlphabeticList();
-		Path path2 = Paths.get(properties.getProperty("directoryRead"));
 
 		try {
 			properties.load(new FileReader("file.properties"));
@@ -40,6 +39,8 @@ public class App {
 		try {
 			fileOutputStream = new FileOutputStream(properties.getProperty("file"));
 			objectOutputStream = new ObjectOutputStream(fileOutputStream);
+			Path path2 = Paths.get(properties.getProperty("directoryRead"));
+
 
 			String encryptedDirAlphaList = encrypter.encrypt(dir2.getFileTreeFrom(path2).toString(), properties.getProperty("encryptionKey"));
 
@@ -55,9 +56,11 @@ public class App {
 			fileInputStream = new FileInputStream(properties.getProperty("file"));
 			objectInputStream = new ObjectInputStream(fileInputStream);
 
-			String desencryptedDirAlphaList = encrypter.desencrypt((String) objectInputStream.readObject(),
+			String desencryptedDirAlphaList = encrypter.desencrypt(objectInputStream.readObject().toString(),
 					properties.getProperty("encryptionKey"));
-
+			
+			
+			
 			System.out.println(desencryptedDirAlphaList);
 			objectInputStream.close();
 

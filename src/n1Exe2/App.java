@@ -13,7 +13,7 @@ public class App {
 		
 		DirectoryAlphabeticList dir2 = new DirectoryAlphabeticList();
 		Path path2 = Paths.get("testDir");
-		for (String p : dir2.getDirectoryFrom(path2)) {
+		for (String p : dir2.getFileTreeFrom(path2)) {
 			System.out.println(p);
 		}
 		
