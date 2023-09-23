@@ -22,6 +22,12 @@ public class App {
 
 		Properties properties = new Properties();
 		AESCypher encrypter = new AESCypher();
+		FileOutputStream fileOutputStream;
+		ObjectOutputStream objectOutputStream;
+		FileInputStream fileInputStream;
+		ObjectInputStream objectInputStream;
+		DirectoryAlphabeticList dir2 = new DirectoryAlphabeticList();
+		Path path2 = Paths.get(properties.getProperty("directoryRead"));
 
 		try {
 			properties.load(new FileReader("file.properties"));
@@ -31,12 +37,9 @@ public class App {
 			e1.printStackTrace();
 		}
 
-		DirectoryAlphabeticList dir2 = new DirectoryAlphabeticList();
-		Path path2 = Paths.get(properties.getProperty("directoryRead"));
-
 		try {
-			FileOutputStream fileOutputStream = new FileOutputStream(properties.getProperty("file"));
-			ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+			fileOutputStream = new FileOutputStream(properties.getProperty("file"));
+			objectOutputStream = new ObjectOutputStream(fileOutputStream);
 
 			String encryptedDirAlphaList = encrypter.encrypt(dir2.getFileTreeFrom(path2).toString(), properties.getProperty("encryptionKey"));
 
@@ -49,8 +52,8 @@ public class App {
 		}
 
 		try {
-			FileInputStream fileInputStream = new FileInputStream(properties.getProperty("file"));
-			ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+			fileInputStream = new FileInputStream(properties.getProperty("file"));
+			objectInputStream = new ObjectInputStream(fileInputStream);
 
 			String desencryptedDirAlphaList = encrypter.desencrypt((String) objectInputStream.readObject(),
 					properties.getProperty("encryptionKey"));
