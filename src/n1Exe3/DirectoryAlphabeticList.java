@@ -1,49 +1,49 @@
 package n1Exe3;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.DirectoryStream;
-import java.nio.file.FileSystems;
-import java.nio.file.FileVisitResult;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.SimpleFileVisitor;
-import java.nio.file.attribute.BasicFileAttributes;
-import java.time.LocalDate;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import java.util.Arrays;
+import java.util.Collections;
 
-public class DirectoryAlphabeticList implements Comparator<Path> {
+public class DirectoryAlphabeticList {
 	
+	private File dir;
+	private ArrayList<String> directoryList;
 
-
-	private ArrayList<String> directory;
-
-	public DirectoryAlphabeticList() {
-		directory = new ArrayList<String>();
+	public DirectoryAlphabeticList(File dir) {
+		directoryList = new ArrayList<String>();
+		this.dir = dir;
 	}
-	
-	public ArrayList<String> getFileTreeFrom (Path dir) {
-		try {
-			Files.walkFileTree(dir, new SimpleFileVisitor<Path>(){
-				  @Override
-				  public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-				    if(!attrs.isDirectory()){
-				       directory.add("(D) " + file.getParent() + "\n(F) " + file.getFileName() + " | Modified: " + attrs.lastModifiedTime());
-				    }
-				    return FileVisitResult.CONTINUE;
-				  }
-				  });
-		} catch (IOException e) {
-			e.printStackTrace();
+
+	private ArrayList<String> goThroughDirectoryTree(File dir, String[] directory) {
+		Collections.sort(Arrays.asList(directory));
+		for (String item : directory) {
+			File file = new File(dir.getAbsolutePath(), item);
+			if (file.isDirectory()) {
+				directoryList.add("(D) " + file.getName() + " | Modified: " + simpleDateFormat(file.lastModified()));
+				goThroughDirectoryTree(file, file.list());
+			} else {
+				directoryList.add("(F) " + file.getName() + " | Modified: " + simpleDateFormat(file.lastModified()));
+			}
 		}
 		
-		directory.sort(Comparator.naturalOrder());
-
-		return directory;
+		return directoryList;
+	}
+	
+	public ArrayList<String> getOrderedFileTreeRecursively() {
+		String[] directory = this.dir.list();
+		return goThroughDirectoryTree(dir, directory);
+	}
+	
+	private String simpleDateFormat (long date) {
+		DateFormat dateFormat =  new SimpleDateFormat("dd-MM-yyyy hh-MM-ss");
+		String lastModifiedDateFormatted = dateFormat.format(date);
+		return lastModifiedDateFormatted;
 	}
 	
 	public void saveDirectoryBackupToFile(String path) {
@@ -51,27 +51,16 @@ public class DirectoryAlphabeticList implements Comparator<Path> {
 		try {
 			FileWriter output = new FileWriter("directoryBackup.txt", true);
 			BufferedWriter buffer = new BufferedWriter(output);
-			buffer.write(path);
+			buffer.write(path + "\n");
 			buffer.close();
 		} catch (IOException event) {
 			System.out.println("File not found.");
 		}
 	}
-
-	@Override
-	public int compare(Path dir1, Path dir2) {
-		Path dir1NameToCompare = dir1.getFileName();
-		Path dir2NameToCompare = dir2.getFileName();
-		return dir2NameToCompare.compareTo(dir1NameToCompare);
-	}
-
 	
 	/*
-	 * Añade a la clase del ejercicio anterior, 
-	 * la funcionalidad de listar un árbol de directorios 
-	 * con el contenido de todos sus niveles (recursivamente) 
-	 * de forma que se impriman en pantalla en orden alfabético 
-	 * dentro de cada nivel, indicando además si es un directorio
-	 * (D) o un archivo (F), y su última fecha de modificación.
+	 * Modifica el ejercicio anterior.
+	 * Ahora, en lugar de mostrar el resultado por la pantalla, 
+	 * guarda el resultado en un archivo TXT.
 	 */
 }
