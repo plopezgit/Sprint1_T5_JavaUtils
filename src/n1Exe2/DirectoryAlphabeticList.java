@@ -37,29 +37,29 @@ public class DirectoryAlphabeticList {
 		return directoryList;
 	}
 
-	public ArrayList<String> getOrderedFileTreeRecursively() {
-		String[] directory = this.dir.list();
-		return goThroughDirectoryTree(dir, directory);
-	}
-
 	private ArrayList<String> goThroughDirectoryTree(File dir, String[] directory) {
 		Collections.sort(Arrays.asList(directory));
 		for (String item : directory) {
 			File file = new File(dir.getAbsolutePath(), item);
 			if (file.isDirectory()) {
-				directoryList.add("D " + file.getName() + " | Modified: " + file.lastModified());
+				directoryList.add("(D) " + file.getName() + " | Modified: " + simpleDateFormat(file.lastModified()));
 				goThroughDirectoryTree(file, file.list());
 			} else {
-				directoryList.add("F " + file.getName() + " | Modified: " + file.lastModified());
+				directoryList.add("(F) " + file.getName() + " | Modified: " + simpleDateFormat(file.lastModified()));
 			}
 		}
 		
 		return directoryList;
 	}
 	
-	public String simpleDateFormat (File file) {
-		DateFormat date =  new SimpleDateFormat("dd-MM-yyyy hh-MM-ss");
-		String lastModifiedDateFormatted = date.format(file.lastModified());
+	public ArrayList<String> getOrderedFileTreeRecursively() {
+		String[] directory = this.dir.list();
+		return goThroughDirectoryTree(dir, directory);
+	}
+	
+	private String simpleDateFormat (long date) {
+		DateFormat dateFormat =  new SimpleDateFormat("dd-MM-yyyy hh-MM-ss");
+		String lastModifiedDateFormatted = dateFormat.format(date);
 		return lastModifiedDateFormatted;
 	}
 	
