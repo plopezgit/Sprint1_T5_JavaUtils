@@ -14,20 +14,10 @@ public class App {
 		
 		try {
 			directoryAlphaList.readDirectoryFromBackup();
-		} catch (IOException e) {
-			e.getMessage();
-		}
-		
-		try {
 			directoryAlphaList.serializeDirectoryToFile();
-		} catch (IOException e) {
-			e.getMessage();
-		}
-		
-		try {
 			directoryAlphaList.desSeriaizeDirectoryFromFileToObject();
 		} catch (IOException | ClassNotFoundException e) {
-			e.printStackTrace();
+			e.getMessage();
 		}
 		
 	}
