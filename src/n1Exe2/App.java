@@ -1,22 +1,14 @@
 package n1Exe2;
 
-import java.nio.file.*;
+import java.io.File;
 
 public class App {
 
 	public static void main(String[] args) {	
-		/*DirectoryAlphabeticList dir = new DirectoryAlphabeticList();
-		Path path = Paths.get("testDir");
-		for (String p : dir.getDirectoryFrom(path)) {
-			System.out.println(p);
-		}*/
-		
-		DirectoryAlphabeticList dir2 = new DirectoryAlphabeticList();
-		Path path2 = Paths.get("testDir");
-		for (String p : dir2.getFileTreeFrom(path2)) {
-			System.out.println(p);
+		DirectoryAlphabeticList directoryAlphaList = new DirectoryAlphabeticList(new File("testDir"));
+		for (String s : directoryAlphaList.getOrderedFileTreeRecursively()) {
+			System.out.println(s);
 		}
-		
 	}
 
 }

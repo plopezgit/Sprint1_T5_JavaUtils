@@ -9,13 +9,15 @@ import java.util.Comparator;
 
 public class DirectoryAlphabeticList implements Comparator<Path> {
 	
+	private Path dir;
 	private ArrayList<Path> directory;
 
-	public DirectoryAlphabeticList() {
+	public DirectoryAlphabeticList(Path dir) {
+		this.dir = dir;
 		directory = new ArrayList<Path>();
 	}
 	
-	public ArrayList<Path> getDirectoryFrom (Path dir) {
+	public ArrayList<Path> getDirectoryFrom () {
 		try (DirectoryStream<Path> stream = Files.newDirectoryStream(dir)){
 			for (Path file: stream) {
 		        directory.add(file.getFileName());

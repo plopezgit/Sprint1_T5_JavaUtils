@@ -5,9 +5,9 @@ import java.nio.file.*;
 public class App {
 
 	public static void main(String[] args) {	
-		DirectoryAlphabeticList dir = new DirectoryAlphabeticList();
 		Path path = Paths.get("testDir");
-		for (Path p : dir.getDirectoryFrom(path)) {
+		DirectoryAlphabeticList dir = new DirectoryAlphabeticList(path);
+		for (Path p : dir.getDirectoryFrom()) {
 			System.out.println(p);
 		}
 	}
