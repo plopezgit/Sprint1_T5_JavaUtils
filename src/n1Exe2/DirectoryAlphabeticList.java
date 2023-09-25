@@ -25,18 +25,6 @@ public class DirectoryAlphabeticList {
 		this.dir = dir;
 	}
 
-	public File getDir() {
-		return dir;
-	}
-
-	public void setDir(File dir) {
-		this.dir = dir;
-	}
-
-	public ArrayList<String> getDirectoryList() {
-		return directoryList;
-	}
-
 	private ArrayList<String> goThroughDirectoryTree(File dir, String[] directory) {
 		Collections.sort(Arrays.asList(directory));
 		for (String item : directory) {
