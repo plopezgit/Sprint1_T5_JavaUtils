@@ -1,6 +1,7 @@
 # Sprint1_T5_JavaUtils
 
 Level 1
+
 Java can be used exclusively, or the Apache Commons IO library if you prefer.
 
 - Exercise 1
@@ -52,8 +53,8 @@ Adds the functionality to read any TXT file and display its contents by console.
 
 
 - Exercise 5
-N
-ow the program needs to serialize a Java Object to a .ser file and then deserialize it.
+
+Now the program needs to serialize a Java Object to a .ser file and then deserialize it.
 
 
 	Terminal Command lines:
@@ -86,7 +87,9 @@ Name and directory of the resulting TXT file.
 
 
 Level 3
+
 - Exercise 1
+
 Create a utility that encrypts and decrypts the files resulting from the previous levels.
 
 Use AES algorithm in ECB or CBC working mode with PKCS5Padding padding method. Either javax.crypto or org.apache.commons.crypto can be used.
