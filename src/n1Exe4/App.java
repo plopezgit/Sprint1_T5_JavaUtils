@@ -1,21 +1,21 @@
 package n1Exe4;
 
+import java.io.File;
 import java.io.IOException;
-import java.nio.file.*;
 
 public class App {
 
-	public static void main(String[] args) {	
+	public static void main(String[] args) {
 		
-		DirectoryAlphabeticList dir2 = new DirectoryAlphabeticList();
-		Path path2 = Paths.get("testDir");
-		for (String p : dir2.getFileTreeFrom(path2)) {
-			dir2.saveDirectoryBackupToFile(p + "\n");
+		DirectoryAlphabeticList directoryAlphaList = new DirectoryAlphabeticList(new File("testDir"));
+		for (String s : directoryAlphaList.getOrderedFileTreeRecursively()) {
+			directoryAlphaList.saveDirectoryBackupToFile(s);
 		}
+		
 		try {
-			dir2.readDirectoryFromBackup();
+			directoryAlphaList.readDirectoryFromBackup();
 		} catch (IOException e) {
-			e.printStackTrace();
+			e.getMessage();
 		}
 		
 	}

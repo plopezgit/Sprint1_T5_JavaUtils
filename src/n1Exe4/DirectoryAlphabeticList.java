@@ -1,36 +1,44 @@
 package n1Exe4;
 
 import java.io.*;
-import java.nio.file.*;
-import java.nio.file.attribute.BasicFileAttributes;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
-public class DirectoryAlphabeticList implements Comparator<Path> {
+public class DirectoryAlphabeticList {
 	
-	private ArrayList<String> directory;
+	private File dir;
+	private ArrayList<String> directoryList;
 
-	public DirectoryAlphabeticList() {
-		directory = new ArrayList<String>();
+	public DirectoryAlphabeticList(File dir) {
+		directoryList = new ArrayList<String>();
+		this.dir = dir;
 	}
-	
-	public ArrayList<String> getFileTreeFrom (Path dir) {
-		try {
-			Files.walkFileTree(dir, new SimpleFileVisitor<Path>(){
-				  @Override
-				  public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-				    if(!attrs.isDirectory()){
-				       directory.add("(D) " + file.getParent() + "\n(F) " + file.getFileName() + " | Modified: " + attrs.lastModifiedTime());
-				    }
-				    return FileVisitResult.CONTINUE;
-				  }
-				  });
-		} catch (IOException e) {
-			e.printStackTrace();
+
+	private ArrayList<String> goThroughDirectoryTree(File dir, String[] directory) {
+		Collections.sort(Arrays.asList(directory));
+		for (String item : directory) {
+			File file = new File(dir.getAbsolutePath(), item);
+			if (file.isDirectory()) {
+				directoryList.add("(D) " + file.getName() + " | Modified: " + simpleDateFormat(file.lastModified()));
+				goThroughDirectoryTree(file, file.list());
+			} else {
+				directoryList.add("(F) " + file.getName() + " | Modified: " + simpleDateFormat(file.lastModified()));
+			}
 		}
 		
-		directory.sort(Comparator.naturalOrder());
-
-		return directory;
+		return directoryList;
+	}
+	
+	public ArrayList<String> getOrderedFileTreeRecursively() {
+		String[] directory = this.dir.list();
+		return goThroughDirectoryTree(dir, directory);
+	}
+	
+	private String simpleDateFormat (long date) {
+		DateFormat dateFormat =  new SimpleDateFormat("dd-MM-yyyy hh-MM-ss");
+		String lastModifiedDateFormatted = dateFormat.format(date);
+		return lastModifiedDateFormatted;
 	}
 	
 	public void saveDirectoryBackupToFile (String path) {
@@ -38,7 +46,7 @@ public class DirectoryAlphabeticList implements Comparator<Path> {
 		try {
 			FileWriter output = new FileWriter("directoryBackup.txt", true);
 			BufferedWriter buffer = new BufferedWriter(output);
-			buffer.write(path);
+			buffer.write(path + "\n");
 			buffer.close();
 		} catch (IOException event) {
 			System.out.println("File not found.");
@@ -46,29 +54,21 @@ public class DirectoryAlphabeticList implements Comparator<Path> {
 	}
 	
 	public void readDirectoryFromBackup () throws IOException {
-		BufferedReader buffer = null;
 		try {
 			FileReader input = new FileReader 
 					("directoryBackup.txt");
-			buffer = new BufferedReader(input);
+			BufferedReader buffer = new BufferedReader(input);
 			String line = "";
 			while (line != null) {
 				line = buffer.readLine();
 				System.out.print(line + "\n");
 			}
+			buffer.close();
 		} catch (IOException event) {
 			System.out.println("File not found.");
 			
-		}finally {
-			buffer.close();
 		}
-	}
-
-	@Override
-	public int compare(Path dir1, Path dir2) {
-		Path dir1NameToCompare = dir1.getFileName();
-		Path dir2NameToCompare = dir2.getFileName();
-		return dir2NameToCompare.compareTo(dir1NameToCompare);
+		
 	}
 
 	/*
