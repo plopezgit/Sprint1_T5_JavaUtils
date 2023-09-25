@@ -9,6 +9,8 @@ public class DirectoryAlphabeticList {
 	
 	private File dir;
 	private ArrayList<String> directoryList;
+	private final String FILE_NOT_FOUND_MSG = "File not found";
+
 
 	public DirectoryAlphabeticList(File dir) {
 		directoryList = new ArrayList<String>();
@@ -49,7 +51,7 @@ public class DirectoryAlphabeticList {
 			buffer.write(path + "\n");
 			buffer.close();
 		} catch (IOException event) {
-			System.out.println("File not found.");
+			System.out.println(FILE_NOT_FOUND_MSG);
 		}
 	}
 	
@@ -65,7 +67,7 @@ public class DirectoryAlphabeticList {
 			}
 			buffer.close();
 		} catch (IOException event) {
-			System.out.println("File not found.");
+			System.out.println(FILE_NOT_FOUND_MSG);
 			
 		}
 		
