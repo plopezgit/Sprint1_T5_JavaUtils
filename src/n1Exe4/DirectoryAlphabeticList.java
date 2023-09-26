@@ -55,7 +55,7 @@ public class DirectoryAlphabeticList {
 		}
 	}
 	
-	public void readDirectoryFromBackup () throws IOException {
+	public void readDirectoryFromBackup () {
 		try {
 			FileReader input = new FileReader 
 					("directoryBackup.txt");

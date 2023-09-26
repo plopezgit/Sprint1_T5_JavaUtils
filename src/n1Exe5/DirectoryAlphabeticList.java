@@ -77,7 +77,7 @@ public class DirectoryAlphabeticList implements Serializable {
 		}
 	}
 	
-	public void readDirectoryFromBackup () throws IOException {
+	public void readDirectoryFromBackup () {
 		try {
 			FileReader input = new FileReader 
 					("directoryBackup.txt");
@@ -93,7 +93,7 @@ public class DirectoryAlphabeticList implements Serializable {
 		}
 	}
 	
-	public void serializeDirectoryToFile () throws IOException {
+	public void serializeDirectoryToFile () {
 		try {
 			FileOutputStream fileOutputStream = new FileOutputStream("directoryBackup.ser");
 			ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
@@ -104,7 +104,7 @@ public class DirectoryAlphabeticList implements Serializable {
 		}
 	}
 	
-	public void desSeriaizeDirectoryFromFileToObject () throws IOException, ClassNotFoundException {
+	public void desSeriaizeDirectoryFromFileToObject () {
 		try {
 			FileInputStream fileOutputStream = new FileInputStream("directoryBackup.ser");
 			ObjectInputStream objectInputStream = new ObjectInputStream(fileOutputStream);

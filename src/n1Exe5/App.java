@@ -11,14 +11,9 @@ public class App {
 		for (String s : directoryAlphaList.getOrderedFileTreeRecursively()) {
 			directoryAlphaList.saveDirectoryBackupToFile(s);
 		}
-		
-		try {
-			directoryAlphaList.readDirectoryFromBackup();
-			directoryAlphaList.serializeDirectoryToFile();
-			directoryAlphaList.desSeriaizeDirectoryFromFileToObject();
-		} catch (IOException | ClassNotFoundException e) {
-			e.getMessage();
-		}
+		directoryAlphaList.readDirectoryFromBackup();
+		directoryAlphaList.serializeDirectoryToFile();
+		directoryAlphaList.desSeriaizeDirectoryFromFileToObject();
 		
 	}
 

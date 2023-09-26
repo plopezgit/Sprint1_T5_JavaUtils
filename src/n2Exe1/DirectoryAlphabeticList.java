@@ -31,6 +31,7 @@ public class DirectoryAlphabeticList implements Serializable {
 		properties = new Properties();
 		directoryList = new ArrayList<String>();
 		this.dir = dir;
+		loadDirectoryAlphabeticListProperties();
 	}
 	
 	public ArrayList<String> getDirectoryList() {
@@ -70,9 +71,7 @@ public class DirectoryAlphabeticList implements Serializable {
 	}
 	
 	public void saveDirectoryBackupToFile (String path) {
-
 		try {
-			loadDirectoryAlphabeticListProperties();
 			FileWriter output = new FileWriter(properties.getProperty("fileTxtPath"), true);
 			BufferedWriter buffer = new BufferedWriter(output);
 			buffer.write(path + "\n");
@@ -82,9 +81,8 @@ public class DirectoryAlphabeticList implements Serializable {
 		}
 	}
 	
-	public void readDirectoryFromBackup () throws IOException {
+	public void readDirectoryFromBackup () {
 		try {
-			loadDirectoryAlphabeticListProperties();
 			FileReader input = new FileReader 
 					(properties.getProperty("fileTxtPath"));
 			BufferedReader buffer = new BufferedReader(input);
@@ -99,9 +97,8 @@ public class DirectoryAlphabeticList implements Serializable {
 		}
 	}
 	
-	public void serializeDirectoryToFile () throws IOException {
+	public void serializeDirectoryToFile () {
 		try {
-			loadDirectoryAlphabeticListProperties();
 			FileOutputStream fileOutputStream = new FileOutputStream(properties.getProperty("fileSerPath"));
 			ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
 			objectOutputStream.writeObject(this);
@@ -111,9 +108,8 @@ public class DirectoryAlphabeticList implements Serializable {
 		}
 	}
 	
-	public void desSeriaizeDirectoryFromFileToObject () throws IOException, ClassNotFoundException {
+	public void desSeriaizeDirectoryFromFileToObject () {
 		try {
-			loadDirectoryAlphabeticListProperties();
 			FileInputStream fileOutputStream = new FileInputStream(properties.getProperty("fileSerPath"));
 			ObjectInputStream objectInputStream = new ObjectInputStream(fileOutputStream);
 			DirectoryAlphabeticList desSerializedDirectoryAlphaList = (DirectoryAlphabeticList) objectInputStream.readObject();
@@ -127,7 +123,7 @@ public class DirectoryAlphabeticList implements Serializable {
 		}
 	}
 	
-	private void loadDirectoryAlphabeticListProperties () throws IOException {
+	private void loadDirectoryAlphabeticListProperties () {
 		try {
 			this.properties.load(new FileReader("file.properties"));
 		} catch (IOException e) {

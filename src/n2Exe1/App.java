@@ -12,14 +12,10 @@ public class App {
 			directoryAlphaList.saveDirectoryBackupToFile(s);
 		}
 		
-		try {
-			directoryAlphaList.readDirectoryFromBackup();
-			directoryAlphaList.serializeDirectoryToFile();
-			directoryAlphaList.desSeriaizeDirectoryFromFileToObject();
-		} catch (IOException | ClassNotFoundException e) {
-			e.getMessage();
-		}
-		
+		directoryAlphaList.readDirectoryFromBackup();
+		directoryAlphaList.serializeDirectoryToFile();
+		directoryAlphaList.desSeriaizeDirectoryFromFileToObject();
+
 	}
 
 }

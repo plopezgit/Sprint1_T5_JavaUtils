@@ -12,11 +12,7 @@ public class App {
 			directoryAlphaList.saveDirectoryBackupToFile(s);
 		}
 		
-		try {
-			directoryAlphaList.readDirectoryFromBackup();
-		} catch (IOException e) {
-			e.getMessage();
-		}
+		directoryAlphaList.readDirectoryFromBackup();
 		
 	}
 
