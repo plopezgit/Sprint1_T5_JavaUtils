@@ -112,7 +112,7 @@ public class DirectoryAlphabeticList implements Serializable {
 
 			objectOutputStream.writeObject(encryptedDirAlphaList);
 			objectOutputStream.close();
-		} catch (IOException | InvalidKeyException | NoSuchAlgorithmException | NoSuchPaddingException | IllegalBlockSizeException | BadPaddingException e) {
+		} catch (IOException e) {
 			System.err.println(FILE_NOT_FOUND_MSG);
 		}
 	}
@@ -126,7 +126,7 @@ public class DirectoryAlphabeticList implements Serializable {
 			objectInputStream.close();
 			System.out.println(desencryptedDirAlphaList);
 			
-		} catch (IOException | ClassNotFoundException | InvalidKeyException | NoSuchAlgorithmException | NoSuchPaddingException | IllegalBlockSizeException | BadPaddingException e) {
+		} catch (IOException | ClassNotFoundException e) {
 			System.err.println(FILE_NOT_FOUND_MSG);
 		}
 	}
@@ -143,8 +143,6 @@ public class DirectoryAlphabeticList implements Serializable {
 	public String toString() {
 		return "Directory Alphabetic List: " + directoryList;
 	}
-	
-	
 	
 	/*
 	 * Crea una utilidad que encripte y desencripte 
