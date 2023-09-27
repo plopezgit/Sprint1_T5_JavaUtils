@@ -45,27 +45,22 @@ public class DirectoryAlphabeticList {
 	
 	public void saveDirectoryBackupToFile (String path) {
 
-		try {
-			FileWriter output = new FileWriter("directoryBackup.txt", true);
-			BufferedWriter buffer = new BufferedWriter(output);
+		try (FileWriter output = new FileWriter("directoryBackup.txt", true);
+				BufferedWriter buffer = new BufferedWriter(output)){
 			buffer.write(path + "\n");
-			buffer.close();
 		} catch (IOException event) {
 			System.out.println(FILE_NOT_FOUND_MSG);
 		}
 	}
 	
 	public void readDirectoryFromBackup () {
-		try {
-			FileReader input = new FileReader 
-					("directoryBackup.txt");
-			BufferedReader buffer = new BufferedReader(input);
+		try (FileReader input = new FileReader("directoryBackup.txt");
+		BufferedReader buffer = new BufferedReader(input);) {
 			String line = "";
 			while (line != null) {
 				line = buffer.readLine();
 				System.out.print(line + "\n");
 			}
-			buffer.close();
 		} catch (IOException event) {
 			System.out.println(FILE_NOT_FOUND_MSG);
 			
