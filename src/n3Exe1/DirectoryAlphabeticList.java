@@ -35,10 +35,10 @@ public class DirectoryAlphabeticList implements Serializable {
 
 	public DirectoryAlphabeticList(File dir) {
 		properties = new Properties();
+		loadDirectoryAlphabeticListProperties();
 		encrypter = new AESCypher();
 		directoryList = new ArrayList<String>();
 		this.dir = dir;
-		loadDirectoryAlphabeticListProperties();
 	}
 
 	public ArrayList<String> getDirectoryList() {
@@ -124,8 +124,8 @@ public class DirectoryAlphabeticList implements Serializable {
 	}
 
 	private void loadDirectoryAlphabeticListProperties() {
-		try {
-			this.properties.load(new FileReader("file.properties"));
+		try (FileReader reader = new FileReader("file.properties")){
+			properties.load(reader);
 		} catch (IOException e) {
 			System.err.println(FILE_NOT_FOUND_MSG);
 		}
