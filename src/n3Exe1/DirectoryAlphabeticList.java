@@ -25,7 +25,7 @@ import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 
 public class DirectoryAlphabeticList implements Serializable {
-	
+
 	private static final long serialVersionUID = 1L;
 	private Properties properties;
 	AESCypher encrypter;
@@ -40,7 +40,7 @@ public class DirectoryAlphabeticList implements Serializable {
 		this.dir = dir;
 		loadDirectoryAlphabeticListProperties();
 	}
-	
+
 	public ArrayList<String> getDirectoryList() {
 		return directoryList;
 	}
@@ -48,8 +48,6 @@ public class DirectoryAlphabeticList implements Serializable {
 	public void setDirectoryList(ArrayList<String> directoryList) {
 		this.directoryList = directoryList;
 	}
-
-
 
 	private ArrayList<String> goThroughDirectoryTree(File dir, String[] directory) {
 		Collections.sort(Arrays.asList(directory));
@@ -62,76 +60,70 @@ public class DirectoryAlphabeticList implements Serializable {
 				directoryList.add("(F) " + file.getName() + " | Modified: " + simpleDateFormat(file.lastModified()));
 			}
 		}
-		
+
 		return directoryList;
 	}
-	
+
 	public ArrayList<String> getOrderedFileTreeRecursively() {
 		String[] directory = this.dir.list();
 		return goThroughDirectoryTree(dir, directory);
 	}
-	
-	private String simpleDateFormat (long date) {
-		DateFormat dateFormat =  new SimpleDateFormat("dd-MM-yyyy hh-MM-ss");
+
+	private String simpleDateFormat(long date) {
+		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy hh-MM-ss");
 		String lastModifiedDateFormatted = dateFormat.format(date);
 		return lastModifiedDateFormatted;
 	}
-	
-	public void saveDirectoryBackupToFile (String path) {
-		try {
-			FileWriter output = new FileWriter(properties.getProperty("fileTxtPath"), true);
-			BufferedWriter buffer = new BufferedWriter(output);
+
+	public void saveDirectoryBackupToFile(String path) {
+		try (FileWriter output = new FileWriter(properties.getProperty("fileTxtPath"), true);
+				BufferedWriter buffer = new BufferedWriter(output)) {
 			buffer.write(path + "\n");
-			buffer.close();
 		} catch (IOException event) {
 			System.err.println(FILE_NOT_FOUND_MSG);
 		}
 	}
-	
-	public void readDirectoryFromBackup () {
-		try {
-			FileReader input = new FileReader 
-					(properties.getProperty("fileTxtPath"));
-			BufferedReader buffer = new BufferedReader(input);
+
+	public void readDirectoryFromBackup() {
+		try (FileReader input = new FileReader(properties.getProperty("fileTxtPath"));
+				BufferedReader buffer = new BufferedReader(input)) {
 			String line = "";
 			while (line != null) {
 				line = buffer.readLine();
 				System.out.print(line + "\n");
 			}
-			buffer.close();
 		} catch (IOException event) {
 			System.err.println(FILE_NOT_FOUND_MSG);
 		}
 	}
-	
-	public void serializeDirectoryToFile () {
-		try {
-			FileOutputStream fileOutputStream = new FileOutputStream(properties.getProperty("fileSerPath"));
-			ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
-			String encryptedDirAlphaList = encrypter.encrypt(this.toString(), properties.getProperty("encryptionKey"));
 
+	public void serializeDirectoryToFile() {
+		try (FileOutputStream fileOutputStream = new FileOutputStream(properties.getProperty("fileSerPath"));
+				ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream)) {
+
+			String encryptedDirAlphaList = encrypter.encrypt(this.toString(), properties.getProperty("encryptionKey"));
 			objectOutputStream.writeObject(encryptedDirAlphaList);
-			objectOutputStream.close();
+
 		} catch (IOException e) {
 			System.err.println(FILE_NOT_FOUND_MSG);
 		}
 	}
-	
-	public void desSeriaizeDirectoryFromFileToObject () {
-		try {
-			FileInputStream fileOutputStream = new FileInputStream(properties.getProperty("fileSerPath"));
-			ObjectInputStream objectInputStream = new ObjectInputStream(fileOutputStream);
+
+	public void desSeriaizeDirectoryFromFileToObject() {
+		try (FileInputStream fileOutputStream = new FileInputStream(properties.getProperty("fileSerPath"));
+				ObjectInputStream objectInputStream = new ObjectInputStream(fileOutputStream)) {
+
 			String desencryptedDirAlphaList = encrypter.desencrypt(objectInputStream.readObject().toString(),
 					properties.getProperty("encryptionKey"));
-			objectInputStream.close();
+
 			System.out.println(desencryptedDirAlphaList);
-			
+
 		} catch (IOException | ClassNotFoundException e) {
 			System.err.println(FILE_NOT_FOUND_MSG);
 		}
 	}
-	
-	private void loadDirectoryAlphabeticListProperties () {
+
+	private void loadDirectoryAlphabeticListProperties() {
 		try {
 			this.properties.load(new FileReader("file.properties"));
 		} catch (IOException e) {
@@ -143,12 +135,11 @@ public class DirectoryAlphabeticList implements Serializable {
 	public String toString() {
 		return "Directory Alphabetic List: " + directoryList;
 	}
-	
+
 	/*
-	 * Crea una utilidad que encripte y desencripte 
-	 * los archivos resultantes de los niveles anteriores.
-	 * Utiliza el algoritmo AES en modo de trabajo ECB o CBC 
-	 * con método de llenado PKCS5Padding. Se puede utilizar 
-	 * javax.crypto o bien org.apache.commons.crypto.
+	 * Crea una utilidad que encripte y desencripte los archivos resultantes de los
+	 * niveles anteriores. Utiliza el algoritmo AES en modo de trabajo ECB o CBC con
+	 * método de llenado PKCS5Padding. Se puede utilizar javax.crypto o bien
+	 * org.apache.commons.crypto.
 	 */
 }
