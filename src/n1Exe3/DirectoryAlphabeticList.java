@@ -49,11 +49,9 @@ public class DirectoryAlphabeticList {
 	
 	public void saveDirectoryBackupToFile(String path) {
 
-		try {
-			FileWriter output = new FileWriter("directoryBackup.txt", true);
-			BufferedWriter buffer = new BufferedWriter(output);
+		try (FileWriter output = new FileWriter("directoryBackup.txt", true);
+				BufferedWriter buffer = new BufferedWriter(output)){
 			buffer.write(path + "\n");
-			buffer.close();
 		} catch (IOException event) {
 			System.out.println(FILE_NOT_FOUND_MSG);
 		}
