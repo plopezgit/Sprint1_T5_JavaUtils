@@ -1,5 +1,9 @@
 # Sprint1_T5_JavaUtils
 
+	Terminal Command lines preliminar checks:
+	java -version
+
+
 Level 1
 
 Java can be used exclusively, or the Apache Commons IO library if you prefer.
@@ -10,10 +14,8 @@ Create a class that alphabetically lists the contents of a directory received by
 
 
 	Terminal Command lines:
-	
-	javac {path}App.java
-	
-	javac {path}App
+	javac src/n1Exe1/App.java
+	java -cp src n1Exe1.App	
 
 
 - Exercise 2
@@ -23,9 +25,8 @@ Add to the class from the previous exercise, the functionality to list a directo
 
 	Terminal Command lines:
 	
-	javac {path}App.java
-	
-	javac {path}App
+	javac src/n1Exe2/App.java
+	java -cp src n1Exe2.App	
 
 
 - Exercise 3
@@ -35,9 +36,8 @@ Modify the previous exercise. Now, instead of displaying the result on the scree
 
 	Terminal Command lines:
 	
-	javac {path}App.java
-	
-	javac {path}App
+	javac src/n1Exe3/App.java
+	java -cp src n1Exe3.App
 
 
 - Exercise 4
@@ -47,9 +47,8 @@ Adds the functionality to read any TXT file and display its contents by console.
 
 	Terminal Command lines:
 	
-	javac {path}App.java
-	
-	javac {path}App
+	javac src/n1Exe4/App.java
+	java -cp src n1Exe4.App
 
 
 - Exercise 5
@@ -59,9 +58,8 @@ Now the program needs to serialize a Java Object to a .ser file and then deseria
 
 	Terminal Command lines:
 	
-	javac {path}App.java
-	
-	javac {path}App
+	javac src/n1Exe5/App.java
+	java -cp src n1Exe5.App
 
 
 Level 2
@@ -81,9 +79,8 @@ Name and directory of the resulting TXT file.
 
 	Terminal Command lines:
 	
-	javac {path}App.java
-	
-	javac {path}App
+	javac src/n2Exe1/App.java
+	java -cp src n2Exe1.App
 
 
 Level 3
@@ -97,6 +94,5 @@ Use AES algorithm in ECB or CBC working mode with PKCS5Padding padding method. E
 
 	Terminal Command lines:
 	
-	javac {path}App.java
-	
-	javac {path}App
+	javac src/n3Exe1/App.java
+	java -cp src n3Exe1.App
